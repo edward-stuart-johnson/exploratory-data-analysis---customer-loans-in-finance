@@ -7,7 +7,7 @@ class RDSDatabaseConnector:
 		import credentials_loader
 		credentials_loader()
 		
-	def SQLAlchemy_initialiser():
+	def SQLAlchemy_initialiser(self):
 		# initialises a SQLAlchemy engine from the credentials provided to your class. 
 		# This engine object together with the Pandas library will allow you to extract data from the database. 
 
@@ -23,15 +23,17 @@ class RDSDatabaseConnector:
 
 		engine.execution_options(isolation_level='AUTOCOMMIT').connect()
 
-		from sqlalchemy import inspect
-		inspector = inspect(engine)
-		inspector.get_table_names()
+		# from sqlalchemy import inspect
+		# inspector = inspect(engine)
+		# inspector.get_table_names()
 
-		from sqlachemy import text
-		with engine.connect() as connection:
-			result = connection.execute(text("SELECT * "))
-			for row in result:
-				print(row)
+		# from sqlachemy import text
+		# with engine.connect() as connection:
+		# 	result = connection.execute(text("SELECT * "))
+		# 	for row in result:
+		# 		print(row)
+
+		# # # # # # # # # # # # # # # # # # # # # # # # 
         
 		# meta = MetaData(engine)
 		# my_table = Table(
@@ -48,20 +50,22 @@ class RDSDatabaseConnector:
 		# results = session.query(my_table).filter(my_table.columns.id >=1)
 		# results.all()
 
-	def RDS_data_extractor():
+	def RDS_data_extractor(self):
 		# Develop a method which extracts data from the RDS database and returns it as a Pandas DataFrame. 
 		# The data is stored in a table called loan_payments. 
 		# example query to table
 		import pandas as pd
 
-		with engine.execution_options(isolation_level='AUTOCOMMIT').connect() as conn:
-			loan_payments = pd.read_sql_table('payments', engine)
+		self.SQLAlchemy_initialiser()
+
+		with self.SQLAlchemy_initialiser.engine.execution_options(isolation_level='AUTOCOMMIT').connect() as conn:
+			loan_payments = pd.read_sql_table('payments', self.SQLAlchemy_initialiser.engine)
 			loan_payments.head(10)
 			# pd.df(session.query(my_table).filter(my_table.columns.id >=1))
 
 	
-	def saver():
+	def saver(self):
 		# saves the data to an appropriate file format to your local machine. 
 		# This should speed up loading up the data when you're performing your EDA/analysis tasks. 
 		# The function should save the data in .csv format, since we're dealing with tabular data.
-		writecsv
+		loan_payments.writecsv("loan_payments.csv")
