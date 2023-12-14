@@ -19,7 +19,6 @@ class RDSDatabaseConnector:
 		from sqlalchemy.orm import sessionmaker
 		
 		engine = create_engine("postgresql://{RDS_USER}:{RDS_PASSWORD}@{RDS_HOST}:{RDS_PORT}/{RDS_DATABASE}".format(**credentials_dictionary))
-		pool_pre_ping=True
 
 		engine.execution_options(isolation_level='AUTOCOMMIT').connect()
 
@@ -68,4 +67,11 @@ class RDSDatabaseConnector:
 		# saves the data to an appropriate file format to your local machine. 
 		# This should speed up loading up the data when you're performing your EDA/analysis tasks. 
 		# The function should save the data in .csv format, since we're dealing with tabular data.
-		loan_payments.writecsv("loan_payments.csv")
+
+		self.RDS_data_extractor()
+
+		import pandas as pd
+
+		loan_payments.to_csv("loan_payments.csv", sep=',', index=False, encoding='utf-8')
+
+RDSDatabaseConnector.saver()
