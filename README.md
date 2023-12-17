@@ -1,5 +1,7 @@
 # Exploratory Data Analysis - Customer Loans in Finance
 
+##the aim of the project
+
 Managing loans is a critical component of business operations in a large financial institution.
 
 To ensure informed decisions are made about loan approvals and risk is efficiently managed, the task is to gain a comprehensive understanding of the loan portfolio data.
@@ -12,12 +14,19 @@ By conducting exploratory data analysis on the loan data, we can gain a deeper u
 
 Ultimately, the goal is to improve the performance and profitability of the loan portfolio.
 
+##What i have learned 
+Using sqlalchemy and psycopg2 to automate SQL queries.
 
 
-   ## Table of Contents, if the README file is long
-   ### A description of the project: what it does, the aim of the project, and what you learned
+
+   
+  
    ### Installation instructions
+   Install psycopg2 and sqlalchemy.
    ### Usage instructions
+   1. Run db_utils.py
+   2. Run local_data_loader.py
    ### File structure of the project
    ### License information
+   GPL-3.0 license 
 
