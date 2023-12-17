@@ -68,11 +68,11 @@ class RDSDatabaseConnector:
 		# self.SQLAlchemy_initialiser()
 
 		# with self.SQLAlchemy_initialiser.engine.execution_options(isolation_level='AUTOCOMMIT').connect() as conn:
-		self.loan_payments_df = pd.read_sql_table('loan_payments', engine)
-		self.loan_payments_df.head(10)
+		self.loan_payments = pd.read_sql_table('loan_payments', engine)
+		self.loan_payments.head(10)
 		print(self.loan_payments_df)
 		# pd.df(session.query(my_table).filter(my_table.columns.id >=1))
-		return self.loan_payments_df
+		return self.loan_payments
 
 	
 	def saver(self, loan_payments):
@@ -89,9 +89,6 @@ class RDSDatabaseConnector:
 import pandas as pd
 database_connection_instance = RDSDatabaseConnector()
 engine = database_connection_instance.SQLAlchemy_initialiser()
-loan_payments_df = database_connection_instance.RDS_data_extractor(engine)
-loan_payments_df
-# print(loan_payments.to_string())
-# print(loan_payments_df.loc['id'])
-# print(database_connection_instance.RDS_data_extractor.loan_payments)
-database_connection_instance.saver(loan_payments_df)
+loan_payments = database_connection_instance.RDS_data_extractor(engine)
+loan_payments
+database_connection_instance.saver(loan_payments)
