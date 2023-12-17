@@ -59,7 +59,7 @@ class RDSDatabaseConnector:
 		# results = session.query(my_table).filter(my_table.columns.id >=1)
 		# results.all()
 
-	def RDS_data_extractor(self):
+	def RDS_data_extractor(self, engine):
 		# Develop a method which extracts data from the RDS database and returns it as a Pandas DataFrame. 
 		# The data is stored in a table called loan_payments. 
 		# example query to table
@@ -68,11 +68,11 @@ class RDSDatabaseConnector:
 		# self.SQLAlchemy_initialiser()
 
 		# with self.SQLAlchemy_initialiser.engine.execution_options(isolation_level='AUTOCOMMIT').connect() as conn:
-		self.loan_payments = pd.read_sql_table('loan_payments', self.SQLAlchemy_initialiser.engine)
-		self.loan_payments.head(10)
-		print(self.loan_payments)
+		self.loan_payments_df = pd.read_sql_table('loan_payments', engine)
+		self.loan_payments_df.head(10)
+		print(self.loan_payments_df)
 		# pd.df(session.query(my_table).filter(my_table.columns.id >=1))
-		return self.loan_payments
+		return self.loan_payments_df
 
 	
 	def saver(self, loan_payments):
@@ -86,11 +86,12 @@ class RDSDatabaseConnector:
 
 		loan_payments.to_csv("loan_payments.csv", sep=',', index=False, encoding='utf-8')
 
-import numpy as np
 import pandas as pd
 database_connection_instance = RDSDatabaseConnector()
 engine = database_connection_instance.SQLAlchemy_initialiser()
-loan_payments = database_connection_instance.RDS_data_extractor
-print(loan_payments)
+loan_payments_df = database_connection_instance.RDS_data_extractor(engine)
+loan_payments_df
+# print(loan_payments.to_string())
+# print(loan_payments_df.loc['id'])
 # print(database_connection_instance.RDS_data_extractor.loan_payments)
-database_connection_instance.saver(loan_payments)
+database_connection_instance.saver(loan_payments_df)

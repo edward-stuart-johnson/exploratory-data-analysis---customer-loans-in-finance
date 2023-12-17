@@ -26,3 +26,5 @@ with engine.execution_options(isolation_level='AUTOCOMMIT').connect() as conn:
     loan_payments = pd.read_sql_table('loan_payments', engine)
     # loan_payments.head(10)
     print(loan_payments)
+
+loan_payments.to_csv("loan_payments.csv", sep=',', index=False, encoding='utf-8')
