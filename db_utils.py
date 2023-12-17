@@ -4,23 +4,33 @@
 class RDSDatabaseConnector:
 	def ___init___(self, credentials_dictionary):
 		# initialises
-		import credentials_loader
-		credentials_loader()
+		# from credentials_loader import credentials_loader
+		# credentials_loader()
+
+		loan_payments = False
 		
 	def SQLAlchemy_initialiser(self):
 		# initialises a SQLAlchemy engine from the credentials provided to your class. 
 		# This engine object together with the Pandas library will allow you to extract data from the database. 
 
-		import credentials_loader
+		from credentials_loader import credentials_loader
 		credentials_dictionary = credentials_loader()
+		print("Credentials dictionary is: ",credentials_dictionary)
+
+		import psycopg2
 
 		import sqlalchemy
 		from sqlalchemy import create_engine
 		from sqlalchemy.orm import sessionmaker
+
+		engine_configuration = "postgresql://{RDS_USER}:{RDS_PASSWORD}@{RDS_HOST}:{RDS_PORT}/{RDS_DATABASE}".format(**credentials_dictionary)
+		print("Engine configuration is: ",engine_configuration)
 		
-		engine = create_engine("postgresql://{RDS_USER}:{RDS_PASSWORD}@{RDS_HOST}:{RDS_PORT}/{RDS_DATABASE}".format(**credentials_dictionary))
+		engine = create_engine(engine_configuration)
 
 		engine.execution_options(isolation_level='AUTOCOMMIT').connect()
+
+		return engine
 
 		# from sqlalchemy import inspect
 		# inspector = inspect(engine)
@@ -55,23 +65,32 @@ class RDSDatabaseConnector:
 		# example query to table
 		import pandas as pd
 
-		self.SQLAlchemy_initialiser()
+		# self.SQLAlchemy_initialiser()
 
-		with self.SQLAlchemy_initialiser.engine.execution_options(isolation_level='AUTOCOMMIT').connect() as conn:
-			loan_payments = pd.read_sql_table('payments', self.SQLAlchemy_initialiser.engine)
-			loan_payments.head(10)
-			# pd.df(session.query(my_table).filter(my_table.columns.id >=1))
+		# with self.SQLAlchemy_initialiser.engine.execution_options(isolation_level='AUTOCOMMIT').connect() as conn:
+		self.loan_payments = pd.read_sql_table('loan_payments', self.SQLAlchemy_initialiser.engine)
+		self.loan_payments.head(10)
+		print(self.loan_payments)
+		# pd.df(session.query(my_table).filter(my_table.columns.id >=1))
+		return self.loan_payments
 
 	
-	def saver(self):
+	def saver(self, loan_payments):
 		# saves the data to an appropriate file format to your local machine. 
 		# This should speed up loading up the data when you're performing your EDA/analysis tasks. 
 		# The function should save the data in .csv format, since we're dealing with tabular data.
 
-		self.RDS_data_extractor()
+		# self.RDS_data_extractor()
 
 		import pandas as pd
 
 		loan_payments.to_csv("loan_payments.csv", sep=',', index=False, encoding='utf-8')
 
-RDSDatabaseConnector.saver()
+import numpy as np
+import pandas as pd
+database_connection_instance = RDSDatabaseConnector()
+engine = database_connection_instance.SQLAlchemy_initialiser()
+loan_payments = database_connection_instance.RDS_data_extractor
+print(loan_payments)
+# print(database_connection_instance.RDS_data_extractor.loan_payments)
+database_connection_instance.saver(loan_payments)
