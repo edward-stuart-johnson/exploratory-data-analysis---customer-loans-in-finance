@@ -10,4 +10,14 @@ This information will enable the business to make more informed decisions about 
 
 By conducting exploratory data analysis on the loan data, we can gain a deeper understanding of the risk and return associated with the business' loans.
 
-Ultimately, the goal is to improve the performance and profitability of the loan portfolio,
+Ultimately, the goal is to improve the performance and profitability of the loan portfolio.
+
+
+
+   ## Table of Contents, if the README file is long
+   ### A description of the project: what it does, the aim of the project, and what you learned
+   ### Installation instructions
+   ### Usage instructions
+   ### File structure of the project
+   ### License information
+
