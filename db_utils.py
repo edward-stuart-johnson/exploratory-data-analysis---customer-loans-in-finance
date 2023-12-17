@@ -86,9 +86,10 @@ class RDSDatabaseConnector:
 
 		loan_payments.to_csv("loan_payments.csv", sep=',', index=False, encoding='utf-8')
 
-import pandas as pd
-database_connection_instance = RDSDatabaseConnector()
-engine = database_connection_instance.SQLAlchemy_initialiser()
-loan_payments = database_connection_instance.RDS_data_extractor(engine)
-loan_payments
-database_connection_instance.saver(loan_payments)
+if __name__ == "__main__":
+	import pandas as pd
+	database_connection_instance = RDSDatabaseConnector()
+	engine = database_connection_instance.SQLAlchemy_initialiser()
+	loan_payments = database_connection_instance.RDS_data_extractor(engine)
+	loan_payments
+	database_connection_instance.saver(loan_payments)

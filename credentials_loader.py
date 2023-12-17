@@ -14,4 +14,5 @@ def credentials_loader():
 	print(credentials_dictionary)
 	return credentials_dictionary
 
-credentials_loader()
+if __name__ == "__main__":
+	credentials_loader()

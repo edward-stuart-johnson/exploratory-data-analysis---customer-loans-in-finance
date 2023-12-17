@@ -9,6 +9,7 @@ def local_data_loader():
         df = pd.read_csv(f) 
     return df
 
-import pandas as pd
-df = local_data_loader()
-print(df)
+if __name__ == "__main__":
+    import pandas as pd
+    df = local_data_loader()
+    print(df)
