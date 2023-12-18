@@ -17,6 +17,8 @@ Ultimately, the goal is to improve the performance and profitability of the loan
 ## What I have learned 
 Using sqlalchemy and psycopg2 to automate SQL queries.
 Using pathlab to reliably load files from the same directory irrespective of operating system.
+Writing and reading .csv files.
+Creating classes loaded in Jupyter notebooks to clean data.
 
 
 

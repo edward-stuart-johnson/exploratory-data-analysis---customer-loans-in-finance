@@ -45,7 +45,6 @@ class RDSDatabaseConnector:
 		'''Saves the tabular data in an appropriate .csv  format to local machine. 
 		   This should speed up loading up the data when performing  EDA/analysis tasks. 
 		'''
-
 		loan_payments.to_csv("loan_payments.csv", sep=',', index=False, encoding='utf-8')
 
 if __name__ == "__main__":
