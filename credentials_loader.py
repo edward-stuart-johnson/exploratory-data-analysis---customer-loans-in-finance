@@ -1,6 +1,7 @@
 def credentials_loader():
-	# A function which loads the credentials.yaml file and returns the data dictionary contained within. 
-	# This will be be passed to  RDSDatabaseConnector as an argument which the class will use to connect to the remote database.
+	'''A function which loads the credentials.yaml file and returns the data dictionary contained within. 
+	   This will be be passed to  RDSDatabaseConnector as an argument which the class will use to connect to the remote database.
+	'''
 	import yaml
 	from pathlib import Path
 
