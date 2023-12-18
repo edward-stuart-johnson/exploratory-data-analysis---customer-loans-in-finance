@@ -9,7 +9,7 @@ class RDSDatabaseConnector:
 
 		loan_payments = False
 		
-	def SQLAlchemy_initialiser(self):
+	def _SQLAlchemy_initialiser_(self):
 		# initialises a SQLAlchemy engine from the credentials provided to your class. 
 		# This engine object together with the Pandas library will allow you to extract data from the database. 
 
@@ -59,7 +59,7 @@ class RDSDatabaseConnector:
 		# results = session.query(my_table).filter(my_table.columns.id >=1)
 		# results.all()
 
-	def RDS_data_extractor(self, engine):
+	def _RDS_data_extractor_(self, engine):
 		# Develop a method which extracts data from the RDS database and returns it as a Pandas DataFrame. 
 		# The data is stored in a table called loan_payments. 
 		# example query to table
@@ -70,12 +70,12 @@ class RDSDatabaseConnector:
 		# with self.SQLAlchemy_initialiser.engine.execution_options(isolation_level='AUTOCOMMIT').connect() as conn:
 		self.loan_payments = pd.read_sql_table('loan_payments', engine)
 		self.loan_payments.head(10)
-		print(self.loan_payments_df)
+		print(self.loan_payments)
 		# pd.df(session.query(my_table).filter(my_table.columns.id >=1))
 		return self.loan_payments
 
 	
-	def saver(self, loan_payments):
+	def _saver_(self, loan_payments):
 		# saves the data to an appropriate file format to your local machine. 
 		# This should speed up loading up the data when you're performing your EDA/analysis tasks. 
 		# The function should save the data in .csv format, since we're dealing with tabular data.
@@ -89,7 +89,7 @@ class RDSDatabaseConnector:
 if __name__ == "__main__":
 	import pandas as pd
 	database_connection_instance = RDSDatabaseConnector()
-	engine = database_connection_instance.SQLAlchemy_initialiser()
-	loan_payments = database_connection_instance.RDS_data_extractor(engine)
+	engine = database_connection_instance._SQLAlchemy_initialiser_()
+	loan_payments = database_connection_instance._RDS_data_extractor_(engine)
 	loan_payments
-	database_connection_instance.saver(loan_payments)
+	database_connection_instance._saver_(loan_payments)
