@@ -2,8 +2,10 @@
 
 class RDSDatabaseConnector:
 	def ___init___(self, credentials_dictionary):
-		'''Initialises table required.
+		'''Imports pandas library and initialises table required.
 		'''
+		import pandas as pd
+
 		loan_payments = False
 		
 	def _SQLAlchemy_initialiser_(self):
@@ -43,12 +45,10 @@ class RDSDatabaseConnector:
 		'''Saves the tabular data in an appropriate .csv  format to local machine. 
 		   This should speed up loading up the data when performing  EDA/analysis tasks. 
 		'''
-		import pandas as pd
 
 		loan_payments.to_csv("loan_payments.csv", sep=',', index=False, encoding='utf-8')
 
 if __name__ == "__main__":
-	import pandas as pd
 	database_connection_instance = RDSDatabaseConnector()
 	engine = database_connection_instance._SQLAlchemy_initialiser_()
 	loan_payments = database_connection_instance._RDS_data_extractor_(engine)
