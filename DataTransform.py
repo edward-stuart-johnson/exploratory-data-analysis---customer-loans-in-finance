@@ -38,7 +38,7 @@ class DataTransform:
         return df
     
     def convert_to_boolean(self, df, column_name):
-        df[column_name] = df[column_name].astype('boolean')# , errors='ignore')
+        df[column_name] = df[column_name].map(dict(y=True, n=False)).astype('boolean')# , errors='ignore')
         return df
 
     def convert_to_numerical(self, df):
