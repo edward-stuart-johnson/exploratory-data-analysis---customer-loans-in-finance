@@ -32,6 +32,10 @@ class DataTransform:
     def convert_to_int(self, df, column_name):
         df[column_name] = df[column_name].astype(int, errors='ignore')
         return df
+    
+    def convert_to_category(self, df, column_name):
+        df[column_name] = df[column_name].astype('category', errors='ignore')
+        return df
 
     def convert_to_numerical(self, df):
         import pandas as pd
