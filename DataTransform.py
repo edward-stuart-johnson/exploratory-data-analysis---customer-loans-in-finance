@@ -28,11 +28,17 @@ class DataTransform:
         # df['last_payment_date'] = pd.to_datetime(df['last_payment_date'])
         # df['next_payment_date'] = pd.to_datetime(df['next_payment_date'])
         # df['last_credit_pull_date'] = pd.to_datetime(df['last_credit_pull_date'])
+    
+    def convert_to_int(self, df, column_name):
+        df[column_name] = df[column_name].astype(int, errors='ignore')
+        return df
 
     def convert_to_numerical(self, df):
         import pandas as pd
 
         df[''] = pd.to_numerical(df[''])
+
+    
 
 if __name__ == '__main__':
     import pandas as pd
