@@ -3,7 +3,9 @@
 
 class DataFrameInfo:
 # Some useful utility methods you might want to create that are often used for EDA tasks are:
-
+    def ___init___(self):
+        pass
+    
     def describe_datatypes(self,df):
         #     Describe all columns in the DataFrame to check their data types
         return df.dtypes
