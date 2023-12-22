@@ -16,10 +16,11 @@ class DataFrameInfo:
 
     def count_distinct_values_in_categories(self, df):
         #     Count distinct values in categorical columns
-        if df[column_Name].dtype =='category':
-            print('The',column_name,'column only has', len(set(df[column_name])),'distinct values:')
-            print(set(df[column_name]))
-            print(column_name,'has datatype:',df[column_name].dtype,'\n')
+        for column_name in df.iteritems():
+            if df[column_name].dtype =='category':
+                print('The',column_name,'column only has', len(set(df[column_name])),'distinct values:')
+                print(set(df[column_name]))
+                print(column_name,'has datatype:',df[column_name].dtype,'\n')
 
     def shape_of_df(self,df):
         #     Print out the shape of the DataFrame
