@@ -36,6 +36,10 @@ class DataTransform:
     def convert_to_category(self, df, column_name):
         df[column_name] = df[column_name].astype('category', errors='ignore')
         return df
+    
+    def convert_to_boolean(self, df, column_name):
+        df[column_name] = df[column_name].astype('boolean')# , errors='ignore')
+        return df
 
     def convert_to_numerical(self, df):
         import pandas as pd
