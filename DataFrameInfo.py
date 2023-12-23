@@ -65,5 +65,8 @@ class DataFrameInfo:
         print('The rest of the columns have less than 50% null values.')
 
 
+        
+
+
 
 
