@@ -2,7 +2,15 @@ class DataFrameTransform:
     # a class to perform EDA transformations on your data
     def __init__(self) -> None:
         pass
-    def impute_columns(self):
+    def impute(self,df,column_name,average):
         # a method which can impute your DataFrame columns. Decide whether the column should be imputed with the median or the mean and impute the NULL values. 
-        median_is_suitable = 
-        mean_is_suitable = 
+        if average == 'median':
+            df[column_name] = df[column_name].fillna(df[column_name].median())
+            # df['no_of_bathrooms'] = df['no_of_bathrooms'].fillna(df['no_of_bathrooms'].median())
+        elif average == 'mean':
+            df[column_name] = df[column_name].fillna(df[column_name].mean())
+        elif average == 'mode':
+            df[column_name] = df[column_name].fillna(df[column_name].mode())
+        else:
+            return ValueError
+        return df
