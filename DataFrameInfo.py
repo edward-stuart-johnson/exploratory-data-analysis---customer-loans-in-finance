@@ -38,27 +38,27 @@ class DataFrameInfo:
     def count_null_values(self,df):
     #     Generate a count/percentage count of NULL values in each column
         for column_name in df:
-            if df[column_name].dtype != 'category':
-                null_count = df[column_name].isna().sum()
-                column_length = len(df[column_name])
-                null_percentage = 100*null_count/column_length 
-                rounded_null_percentage = round(null_percentage,2)
-                print(column_name, 'has',null_count, 'null values out of', column_length,'values, which is',rounded_null_percentage,'percent of the column.')
+            # if df[column_name].dtype != 'category':
+            null_count = df[column_name].isna().sum()
+            column_length = len(df[column_name])
+            null_percentage = 100*null_count/column_length 
+            rounded_null_percentage = round(null_percentage,2)
+            print(column_name, 'has',null_count, 'null values out of', column_length,'values, which is',rounded_null_percentage,'percent of the column.')
 
 
         
     def find_extreme_amounts_of_null_values(self,df):
         #     Generate a count/percentage count of NULL values in each column
         for column_name in df:
-            if df[column_name].dtype != 'category':
-                null_count = df[column_name].isna().sum()
-                if null_count > 0:
-                    column_length = len(df[column_name])
-                    null_percentage = 100*null_count/column_length 
-                    rounded_null_percentage = round(null_percentage,2)
-                    if null_percentage > 50:
-                        print(column_name, 'has',null_count, 'null values out of', column_length,'values, which is',rounded_null_percentage,'percent of the column.')
-                        print('This column should be removed, because most of it is null values.')
+            # if df[column_name].dtype != 'category':
+            null_count = df[column_name].isna().sum()
+            if null_count > 0:
+                column_length = len(df[column_name])
+                null_percentage = 100*null_count/column_length 
+                rounded_null_percentage = round(null_percentage,2)
+                if null_percentage > 50:
+                    print(column_name, 'has',null_count, 'null values out of', column_length,'values, which is',rounded_null_percentage,'percent of the column.')
+                    print('This column should be removed, because most of it is null values.')
         print('The rest of the columns have less than 50% null values.')
 
 

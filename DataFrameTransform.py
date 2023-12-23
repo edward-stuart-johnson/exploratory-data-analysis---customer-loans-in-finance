@@ -10,7 +10,10 @@ class DataFrameTransform:
         elif average == 'mean':
             df[column_name] = df[column_name].fillna(df[column_name].mean())
         elif average == 'mode':
-            df[column_name] = df[column_name].fillna(df[column_name].mode())
+            if df[column_name].dtype != 'category':
+                df[column_name] = df[column_name].fillna(df[column_name].mode())
+            if df[column_name].dtype == 'category':
+                df[column_name] = df[column_name].fillna(df[column_name].value_counts().index[0])
         else:
             return ValueError
         return df
