@@ -25,7 +25,7 @@ Creating classes loaded in Jupyter notebooks to clean data.
    
   
    ### Installation instructions
-   Install psycopg2 and sqlalchemy.
+   Install psycopg2 and sqlalchemy and matplotlib and seaborn.
    ### Usage instructions
    1. Run db_utils.py
    2. Run local_data_loader.py

@@ -12,8 +12,13 @@ class DataFrameInfo:
     
     def statistics(self,df):
         #     Extract statistical values: median, standard deviation and mean from the columns and the DataFrame
-        statistical_values = df.Describe()
-        return statistical_values
+        # statistical_values = df.Describe()
+        mean = []
+        median = []
+        for column_name in df.iteritems():
+            mean[column_name] = df[column_name].mean()
+            median[column_name] = df[column_name].median()
+        return mean, median
 
 
     def count_distinct_values_in_categories(self, df):
