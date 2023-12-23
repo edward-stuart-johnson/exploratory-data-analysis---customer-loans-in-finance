@@ -15,7 +15,7 @@ class DataTransform:
             #      day = 1
             #         )
             #  df[column_name] = pd.to_datetime(month_and_year_only_format)
-        df[column_name] = pd.to_datetime(df[column_name], format='mixed')
+        df[column_name] = pd.to_datetime(df[column_name], format='mixed', errors = 'coerce')
 
             #  print(pd.to_datetime(rawdata['input'], format='mixed'))
 

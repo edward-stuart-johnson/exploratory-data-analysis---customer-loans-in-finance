@@ -35,7 +35,7 @@ class DataFrameInfo:
         print('The shape of this dataframe is',shape)
         return shape
     
-    def count_null_values(self,df):
+    def calculate_percentages_of_null_values(self,df):
     #     Generate a count/percentage count of NULL values in each column
         for column_name in df:
             # if df[column_name].dtype != 'category':
@@ -45,7 +45,10 @@ class DataFrameInfo:
             rounded_null_percentage = round(null_percentage,2)
             print(column_name, 'has',null_count, 'null values out of', column_length,'values, which is',rounded_null_percentage,'percent of the column.')
 
-
+    def count_amounts_of_null_values(self,df):
+        null_counts = df.isnull().sum()
+        null_counts[null_counts > 0].sort_values(ascending=False)
+        return null_counts
         
     def find_extreme_amounts_of_null_values(self,df):
         #     Generate a count/percentage count of NULL values in each column
