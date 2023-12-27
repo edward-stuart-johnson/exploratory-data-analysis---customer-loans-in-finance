@@ -2,6 +2,7 @@ class DataFrameTransform:
     # a class to perform EDA transformations on your data
     def __init__(self) -> None:
         pass
+    
     def impute(self,df,column_name,average):
         # a method which can impute your DataFrame columns. Decide whether the column should be imputed with the median or the mean and impute the NULL values. 
         if average == 'median':
@@ -21,6 +22,7 @@ class DataFrameTransform:
         return df
     
     def log_transform(self,df,column_name):
+        import seaborn as sns
         log_transformed_data= df[column_name].map(lambda i: np.log(i) if i > 0 else 0)
         t=sns.histplot(log_transformed_data,label="Skewness: %.2f"%(log_transformed_data.skew()), kde=True )
         t.legend()

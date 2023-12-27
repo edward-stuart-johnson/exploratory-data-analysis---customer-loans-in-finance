@@ -2,6 +2,7 @@ class Plotter:
     # a class to visualise insights from the data
     def __init__(self) -> None:
         pass
+
     def visualise_null_values(self, df):
         '''This method visualises the removal of null values.'''
         import pandas as pd
@@ -25,18 +26,23 @@ class Plotter:
                         dpi=100)
 
     def skewness(self, df):
+        import pandas as pd
+        import seaborn as sns
+
+        numeric_features = list()
         for column_name in df:
             # Set numeric (ie. continuous or ordinal category) features:
-            numeric_features = list()
             if df[column_name].dtype in ('int64', 'float64'):
                 numeric_features.append(column_name)
-        categorical_features = [col for col in df.columns if col not in numeric_features]
+                
+        # categorical_features = [col for col in df.columns if col not in numeric_features]
         sns.set(font_scale=0.7)
         f = pd.melt(df, value_vars=numeric_features)
         g = sns.FacetGrid(f, col="variable",  col_wrap=3, sharex=False, sharey=False)
         g = g.map(sns.histplot, "value", kde=True)
 
     def qqplot(self,df,column_name):
+        import matplotlib.pyplot as plt
         from statsmodels.graphics.gofplots import qqplot
         qq_plot = qqplot(df[column_name] , scale=1 ,line='q', fit=True)
         plt.show()
@@ -64,9 +70,13 @@ class Plotter:
             #         fig.show()    
 
     def pairplot(self,df):
+        import seaborn as sns
         sns.pairplot(df[numeric_features])
 
     def correlation_matrix(self,df):
+        import seaborn as sns
+        import matplotlib.pyplot as plt
+
         corr = df.corr()
         # Draw the heatmap
         sns.heatmap(corr, mask=mask,
