@@ -70,10 +70,39 @@ class DataFrameTransform:
                 numeric_features.append(column_name)    
         return numeric_features
     
-    def box_cox_transform(self,df,column_name):
-        # from scipy import stats
+    def box_cox_transform(self,df,skewnessthreshold = 3):
         from scipy.stats import boxcox
         import numpy as np
-        transformed_df = df.copy()
-        transformed_df[column_name] = boxcox(transformed_df[column_name],lmbda=None)
-        return transformed_df
+        
+        numeric_features = self.create_numeric_features_list(df)
+        # Box_Cox_transformed_df = to_be_Box_Cox_transformed_df.copy()
+        Box_Cox_transformed_df = df.copy()
+
+        for column_name in numeric_features:
+            if Box_Cox_transformed_df[column_name].skew(axis=0,skipna=True,numeric_only=True) > skewnessthreshold:
+                original_skew = Box_Cox_transformed_df[column_name].skew(axis=0,skipna=True,numeric_only=True)
+                print(column_name,'has a skewness of',original_skew)
+                Box_Cox_transformed_df[column_name] = boxcox(Box_Cox_transformed_df[column_name])[0]
+                transformed_skew = Box_Cox_transformed_df[column_name].skew(axis=0,skipna=True,numeric_only=True)
+                print(column_name,'has a new skewness after a Box-Cox transformation of',transformed_skew)
+                print('This is a change in skewness of', original_skew - transformed_skew)  
+                print('\n')
+        return Box_Cox_transformed_df
+    
+    def Yeo_Johnson_transform(self,df,skewnessthreshold = 3):
+        from scipy.stats import yeojohnson
+        import numpy as np
+        
+        numeric_features = self.create_numeric_features_list(df)
+        Yeo_Johnson_transformed_df = df.copy()
+
+        for column_name in numeric_features:
+            if Yeo_Johnson_transformed_df[column_name].skew(axis=0,skipna=True,numeric_only=True) > skewnessthreshold:
+                original_skew = Yeo_Johnson_transformed_df[column_name].skew(axis=0,skipna=True,numeric_only=True)
+                print(column_name,'has a skewness of',original_skew)
+                Yeo_Johnson_transformed_df[column_name] = yeojohnson(Yeo_Johnson_transformed_df[column_name])[0]
+                transformed_skew = Yeo_Johnson_transformed_df[column_name].skew(axis=0,skipna=True,numeric_only=True)
+                print(column_name,'has a new skewness after a Yeo-Johnson transformation of',transformed_skew)
+                print('This is a change in skewness of', original_skew - transformed_skew)  
+                print('\n')
+        return Yeo_Johnson_transformed_df    
