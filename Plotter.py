@@ -69,7 +69,7 @@ class Plotter:
 
             #         fig.show()    
 
-    def pair_plot(self,df):
+    def pair_plot(self,df,numeric_features):
         import seaborn as sns
         sns.pairplot(df[numeric_features])
 

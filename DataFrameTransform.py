@@ -38,22 +38,29 @@ class DataFrameTransform:
     
     def log_transform_skewed_numeric_columns(self,df,skewnessthreshold = 3):
         numeric_features = self.create_numeric_features_list(df)
+        df_to_be_transformed = df.copy()
+        log_transformed_df = df.copy()
         for column_name in numeric_features:
         # .skew(axis=0,skipna=True,numeric_only=True):
             # print(df[column_name])    
-            if df[column_name].skew(axis=0,skipna=True,numeric_only=True) > skewnessthreshold:
-                original_skew = df[column_name].skew(axis=0,skipna=True,numeric_only=True)
+            if df_to_be_transformed[column_name].skew(axis=0,skipna=True,numeric_only=True) > skewnessthreshold:
+                original_skew = df_to_be_transformed[column_name].skew(axis=0,skipna=True,numeric_only=True)
                 print(column_name,'has a skewness of',original_skew)
                 print(column_name,'is very skewed')
             # if df[column_name][1].skew() > 3:
             # # df[column_name].skew(axis=0,skipna=True,numeric_only=True) > 3:
                 # log_transformed_data = self.log_transform(df,column_name)
                 import numpy as np
-                df[column_name] = df[column_name].map(lambda i: np.log(i) if i > 0 else 0)
-                transformed_skew = df[column_name].skew(axis=0,skipna=True,numeric_only=True)
+                log_transformed_df[column_name] = log_transformed_df[column_name].map(lambda i: np.log(i) if i > 0 else 0)
+                transformed_skew = log_transformed_df[column_name].skew(axis=0,skipna=True,numeric_only=True)
                 print(column_name,'has a new skewness after a log transformation of',transformed_skew)
                 print('This is a change in skewness of', original_skew - transformed_skew)     
                 print('\n') 
+        return log_transformed_df
+    
+    def inverse_log_transform_column(self,df,column_name):
+        import numpy as np
+        df[column_name].map(lambda i: np.exp(i) if i > 0 else 0)
 
     def create_numeric_features_list(self, df):
         numeric_features = list()
@@ -62,3 +69,11 @@ class DataFrameTransform:
             if df[column_name].dtype in ('int64', 'float64'):
                 numeric_features.append(column_name)    
         return numeric_features
+    
+    def box_cox_transform(self,df,column_name):
+        # from scipy import stats
+        from scipy.stats import boxcox
+        import numpy as np
+        transformed_df = df.copy()
+        transformed_df[column_name] = boxcox(transformed_df[column_name],lmbda=None)
+        return transformed_df
