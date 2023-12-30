@@ -49,7 +49,8 @@ class Plotter:
         df[column_name].describe()
 
     def box_plot(self,df,column_name):
-        pass
+        import pandas
+        df.boxplot(column=column_name)
             # import plotly.graph_objects as go
 
             # for column_name in df.iteritems():
