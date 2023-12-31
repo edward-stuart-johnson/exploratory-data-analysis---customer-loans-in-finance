@@ -74,7 +74,7 @@ class Plotter:
         import seaborn as sns
         sns.pairplot(df[numeric_features])
 
-    def correlation_matrix(df,numeric_features):
+    def correlation_matrix(self, df,numeric_features):
         import seaborn as sns
         import matplotlib.pyplot as plt
 
