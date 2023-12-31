@@ -74,16 +74,14 @@ class Plotter:
         import seaborn as sns
         sns.pairplot(df[numeric_features])
 
-    def correlation_matrix(self,df):
+    def correlation_matrix(df,numeric_features):
         import seaborn as sns
         import matplotlib.pyplot as plt
 
-        corr = df.corr()
+        corr = df[numeric_features].corr()
         # Draw the heatmap
-        sns.heatmap(corr, mask=mask,
-                    square=True, linewidths=.5, annot=True, cmap=cmap)
+        sns.heatmap(corr, 
+                    square=True, linewidths=.5, annot=True)
         plt.yticks(rotation=0)
         plt.title('Correlation Matrix of all Numerical Variables')
         plt.show()
-
-        
