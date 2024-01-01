@@ -85,3 +85,24 @@ class Plotter:
         plt.yticks(rotation=0)
         plt.title('Correlation Matrix of all Numerical Variables')
         plt.show()
+
+    def scattergraph(self, df, x, y):
+        '''
+        Create a scatter graph of x and y given as array-like objects.
+        '''
+        # from plotly import plotly.express as px
+        # fig = px.scatter(x, y)
+        # fig.show()
+
+        import seaborn as sns
+        import matplotlib.pyplot as plt
+
+        # sns.scatterplot(x=x,y=y,legend='full')
+
+        ax = sns.lmplot(data=df, x=x, y=y)
+
+        # plt.yticks(rotation=0)
+        # plt.title('Scatter Graph of',x,'and',y)
+        # plt.axes.set_xlabel(x)
+        # plt.axes.set_ylabel(y)
+        # plt.show()
