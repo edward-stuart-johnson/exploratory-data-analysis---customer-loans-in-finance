@@ -146,3 +146,30 @@ class DataFrameTransform:
         df = df.drop(columns=drops)
 
         return df
+    
+    def z_score_outliers(df, column_name):
+    
+        import numpy as np
+        import scipy.stats as stats
+
+
+        indices_of_z_score_outliers = df.index[(np.abs(stats.zscore(df[column_name]) > 2))]
+
+        return indices_of_z_score_outliers
+    
+    def remove(df, indices):
+        indices = sorted(set(indices))
+        df = df.drop(indices)
+        return df
+    
+    def quartile_outliers(df, column_name):
+        Q1 = df[column_name].quantile(0.25)
+        Q3 = df[column_name].quantile(0.75)
+        IQR = Q3 - Q1
+
+        lower_bound = Q1 - 1.5 * IQR
+        upper_bound = Q1 + 1.5 * IQR
+
+        indices_of_quartile_outliers = df.index[(df[column_name] < lower_bound) | (df[column_name] > upper_bound)]
+
+        return indices_of_quartile_outliers
